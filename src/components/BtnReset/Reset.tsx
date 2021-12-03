@@ -2,12 +2,11 @@ import classes from './Reset.module.css'
 
 type PropsType = {
     inc: number
-    setInc: (inc: number) => void
     changeReset: () => void
     startValue: number
 }
 
-export function ResetButton({inc, setInc, changeReset, startValue, ...props}: PropsType) {
+export function ResetButton({inc, changeReset, startValue, ...props}: PropsType) {
 
     const disabledReset = inc === startValue
 

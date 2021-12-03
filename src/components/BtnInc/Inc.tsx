@@ -1,23 +1,19 @@
 import classes from './Inc.module.css'
 
 type PropsType = {
-    inc: number
-    setInc: (inc: number) => void
-    changeInc: () => void
-    maxValue: number
+    title: string
+    callback: () => void
+    disabled: boolean
 }
 
-export function IncButton({inc, setInc, changeInc, maxValue, ...props}: PropsType) {
-
-    const disabledInc = inc === maxValue
+export function Button({title, callback, disabled, ...props}: PropsType) {
 
     return (
         <div className={classes.buttonsStyle}>
-            <button onClick={changeInc}
-                    disabled={disabledInc}
-                    className={classes.buttonStyle}
-            >
-                inc
+            <button onClick={callback}
+                    disabled={disabled}
+                    className={classes.buttonStyle}>
+                {title}
             </button>
         </div>
     )

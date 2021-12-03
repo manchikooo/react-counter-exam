@@ -6,9 +6,12 @@ type PropsType = {
 }
 
 export function Tablo({inc, maxValue, ...props}: PropsType) {
+
+    const changeClass = inc === maxValue ? classes.maxCountStyle : classes.countStyle
+
     return (
         <div className={classes.tabloBlock}>
-            <div className={inc === maxValue ? classes.maxCountStyle : classes.countStyle}>
+            <div className={changeClass}>
                 {inc}
             </div>
         </div>
