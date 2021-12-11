@@ -1,16 +1,27 @@
 import React, {useState} from 'react';
-import logo from './logo.svg';
 import './App.css';
-// import {Buttons} from "./components/Buttons/Buttons";
-import {Tablo} from "./components/Tablo/Tablo";
-import {ResetButton} from "./components/BtnReset/Reset";
-import {Button} from "./components/BtnInc/Inc";
-import classes from "./components/Buttons/Buttons.module.css";
+import {Tablo} from "./components/Counter/Tablo/Tablo";
+import {Button} from "./components/Counter/Button/Button";
+import classes from "./components/Counter/Buttons(не-нужны)/Buttons.module.css";
+import {Input} from "./components/CounterSettings/Input";
+import CIclasses from './components/CounterSettings/CounterSettings.module.css'
 
 function App() {
 
-    const startValue = 0
-    const maxValue = 5
+    const [startValue, setStartValue] = useState<number>(0)
+    const [maxValue, setMaxValue] = useState<number>(10)
+
+
+    // const changeNewStartValue = (value: number) => {
+    //     startValue = value
+    // }
+    // const changeNewMaxValue = (value: number) => {
+    //     maxValue = value
+    // }
+
+    // const changeDis = (currentTarget: number) => {
+    // if
+    // }
 
     const [inc, setInc] = useState(startValue)
 
@@ -20,29 +31,55 @@ function App() {
         }
     }
 
+    const changeSet = () => {
+        setInc(startValue)
+    }
+
     const changeReset = () => {
-        setInc(0)
+        setInc(startValue)
     }
 
     const disabledInc = inc === maxValue
     const disabledReset = inc === startValue
+    const disabledSet = startValue === 0 && maxValue === 10
     return (
-        <div className="App">
-            <Tablo inc={inc}
-                   maxValue={maxValue}/>
-            {/*<Buttons inc={inc} setInc={setInc}/>*/}
-            <div className={classes.buttonsStyle}>
-                <Button title={'inc'}
-                        callback={changeInc}
-                        disabled={disabledInc}
-                />
-                <Button title={'reset'}
-                        callback={changeReset}
-                        disabled={disabledReset}
-                />
-                {/*<ResetButton inc={inc}*/}
-                {/*             changeReset={changeReset}*/}
-                {/*             startValue={startValue}/>*/}
+        <div>
+            <div className={CIclasses.settingsInfoAndButtonBlock}>
+                <div className={CIclasses.counterSettings}>
+                    <div>
+                        <Input title={'max value'}
+                            // changeNewValue={changeNewMaxValue}
+                               newValue={maxValue}
+                               setNewValue={setMaxValue}
+                               // changeDis={changeDis}
+                        />
+                        <Input title={'start value'}
+                            // changeNewValue={changeNewStartValue}
+                               newValue={startValue}
+                               setNewValue={setStartValue}
+                               // changeDis={changeDis}
+                        />
+                    </div>
+                </div>
+                <div className={CIclasses.buttonBlock}>
+                    <Button title={'set'}
+                            callback={changeSet}
+                            disabled={disabledSet}/>
+                </div>
+            </div>
+            <div className="Counter">
+                <Tablo inc={inc}
+                       maxValue={maxValue}/>
+                <div className={classes.buttonsStyle}>
+                    <Button title={'inc'}
+                            callback={changeInc}
+                            disabled={disabledInc}
+                    />
+                    <Button title={'reset'}
+                            callback={changeReset}
+                            disabled={disabledReset}
+                    />
+                </div>
             </div>
         </div>
     );

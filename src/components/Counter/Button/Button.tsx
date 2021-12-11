@@ -1,4 +1,4 @@
-import classes from './Inc.module.css'
+import classes from './Button.module.css'
 
 type PropsType = {
     title: string
