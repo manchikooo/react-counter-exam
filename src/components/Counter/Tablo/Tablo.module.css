@@ -1,8 +1,8 @@
 .maxCountStyle {
-    font-size: 45px;
+    font-size: 40px;
     font-weight: bold;
     color: red;
-    padding: 10px;
+    padding: 13px;
 }
 
 .countStyle {
@@ -15,4 +15,10 @@
     background-color: #6AE0FF;
     min-width: 250px;
     border-radius: 15px;
+}
+.incorrectMessageStyle {
+    font-size: 40px;
+    font-weight: bold;
+    color: red;
+    padding: 13px;
 }

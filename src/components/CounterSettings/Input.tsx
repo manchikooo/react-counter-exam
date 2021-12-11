@@ -5,14 +5,12 @@ type PropsType = {
     title: string
     newValue: number
     setNewValue: (valueAsNumber: number) => void
-    // changeInputStyle: () => void
     errorValue: string
     setSetDisabled: Dispatch<SetStateAction<boolean>>
     setIncDisabled: Dispatch<SetStateAction<boolean>>
     setResetDisabled: Dispatch<SetStateAction<boolean>>
     setIncValue: Dispatch<SetStateAction<number | string>>
     errorMessage: () => void
-    // changeNewValue: (value: number) => void
 }
 
 export function Input(props: PropsType) {

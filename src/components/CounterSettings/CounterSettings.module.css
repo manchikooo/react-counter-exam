@@ -22,9 +22,15 @@
 
 .inputBlock { /* value и инпут к нему */
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     color: #6AE0FF;
     padding: 5px;
+}
+
+.valueInfo {
+    display: flex;
+    justify-content: space-between;
 }
 
 .input { /* настройки инпута */
