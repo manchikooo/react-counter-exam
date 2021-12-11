@@ -13,7 +13,7 @@ function App() {
     const [resetDisabled, setResetDisabled] = useState(false)
     const [incDisabled, setIncDisabled] = useState(false)
     const [inc, setInc] = useState<number | string>(startValue)
-    const [counterMessage, setCounterMessage] = useState<'Press key' | 'Incorrect value' | null>(null)
+    const [counterMessage, setCounterMessage] = useState<'Press set' | 'Incorrect value' | null>(null)
 
     const changeSet = () => { //при клике на кнопку set происходит это:
         setCounterMessage(null)
@@ -44,7 +44,7 @@ function App() {
             setCounterMessage('Incorrect value')
         }
         if (+e.currentTarget.value > startValue) {
-            setCounterMessage('Press key')
+            setCounterMessage('Press set')
         }
     }
     const currentValueOfStartInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -54,12 +54,12 @@ function App() {
         setIncDisabled(true)
         setResetDisabled(true)
         setStartValue(+e.currentTarget.value)
-        setCounterMessage('Press key')
+        setCounterMessage('Press set')
         if (+e.currentTarget.value >= maxValue) {
             setCounterMessage('Incorrect value')
         }
         if (+e.currentTarget.value < maxValue) {
-            setCounterMessage('Press key')
+            setCounterMessage('Press set')
         }
         if (+e.currentTarget.value < 0) {
             setCounterMessage('Incorrect value')

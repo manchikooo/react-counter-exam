@@ -4,7 +4,7 @@ type PropsType = {
     inc: number | string
     startValue: number
     maxValue: number
-    counterMessage: 'Press key' | 'Incorrect value' | null
+    counterMessage: 'Press set' | 'Incorrect value' | null
 }
 
 export function Tablo(props: PropsType) {
