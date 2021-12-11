@@ -1,14 +1,4 @@
-.counterSettings {
-    display: flex;
-    justify-content: space-between;
-    border: 3px #6AE0FF solid;
-    border-radius: 15px;
-    padding: 5px;
-    background-color: #4E4E4E;
-    font-size: 30px;
-}
-
-.settingsInfoAndButtonBlock {
+.settingsInfoAndButtonBlock { /* общий блок настроек счетчика */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -20,24 +10,44 @@
     box-shadow: 0 0 10px 3px black;
 }
 
-.inputBlock {
+.counterSettings { /* настройки счетчика без кнопки */
+    display: flex;
+    justify-content: space-between;
+    border: 3px #6AE0FF solid;
+    border-radius: 15px;
+    padding: 5px;
+    background-color: #4E4E4E;
+    font-size: 30px;
+}
+
+.inputBlock { /* value и инпут к нему */
     display: flex;
     justify-content: space-between;
     color: #6AE0FF;
     padding: 5px;
 }
 
-.input {
+.input { /* настройки инпута */
     border-radius: 10px;
     margin-left: 10px;
     padding: 5px;
+    text-align: center;
 }
 
-.buttonBlock {
+.buttonBlock { /* блок с кнопкой внутри */
     border: 3px #6AE0FF solid;
     border-radius: 15px;
     padding: 10px;
     margin-top: 15px;
     width: 92%;
     text-align: center;
+}
+
+.inputError {
+    border-radius: 10px;
+    margin-left: 10px;
+    padding: 5px;
+    text-align: center;
+    border-color: red;
+    background-color: rgba(255, 0, 0, 0.5);
 }
