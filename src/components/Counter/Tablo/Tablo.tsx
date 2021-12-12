@@ -11,7 +11,7 @@ export function Tablo(props: PropsType) {
 
     const changeClass2 = () => {
         if (props.inc === props.maxValue) {
-            return classes.maxCountStyle
+            return classes.incorrectMessageStyle
         } else if (props.counterMessage === 'Incorrect value' || props.startValue < 0) {
             return classes.incorrectMessageStyle
         } else return classes.countStyle

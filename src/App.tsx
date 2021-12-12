@@ -1,9 +1,11 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.css';
 import {Tablo} from "./components/Counter/Tablo/Tablo";
 import {Button} from "./components/Counter/Button/Button";
 import classes from "./components/Counter/Buttons(не-нужны)/Buttons.module.css";
 import CIclasses from './components/CounterSettings/CounterSettings.module.css'
+
+type counterMessagesType = 'Press set' | 'Incorrect value' | null
 
 function App() {
 
@@ -13,7 +15,29 @@ function App() {
     const [resetDisabled, setResetDisabled] = useState(false)
     const [incDisabled, setIncDisabled] = useState(false)
     const [inc, setInc] = useState<number | string>(startValue)
-    const [counterMessage, setCounterMessage] = useState<'Press set' | 'Incorrect value' | null>(null)
+    const [counterMessage, setCounterMessage] = useState<counterMessagesType>(null)
+
+    useEffect(() => {
+    }, [startValue])
+
+    useEffect(() => {
+    }, [maxValue])
+
+    useEffect(() => {
+        let startValueAsString = localStorage.getItem('startValue')
+        if (startValueAsString) {
+            let newStartValueAsString = JSON.parse(startValueAsString)
+            setStartValue(newStartValueAsString)
+        }
+    }, [])
+
+    useEffect(() => {
+        let maxValueAsString = localStorage.getItem('maxValue')
+        if (maxValueAsString) {
+            let newMaxValueAsString = JSON.parse(maxValueAsString)
+            setMaxValue(newMaxValueAsString)
+        }
+    }, [])
 
     const changeSet = () => { //при клике на кнопку set происходит это:
         setCounterMessage(null)
@@ -21,6 +45,8 @@ function App() {
         setSetDisabled(true)
         setIncDisabled(false)
         setResetDisabled(false)
+        localStorage.setItem('startValue', JSON.stringify(startValue))
+        localStorage.setItem('maxValue', JSON.stringify(maxValue))
     }
 
     const changeInc = () => { //при клике на кнопку inc происходит это:
@@ -68,7 +94,7 @@ function App() {
 
     const inputErrorStyle = maxValue <= startValue || maxValue <= 0 || startValue < 0 ? CIclasses.inputError : CIclasses.input
     //класс для инпута ошибки или нет
-    const conditionsOfSetDisable = startValue === 0 && maxValue === 5 || setDisabled || startValue < 0 || maxValue <= 0 || startValue >= maxValue
+    const conditionsOfSetDisable = setDisabled || startValue < 0 || maxValue <= 0 || startValue >= maxValue
 
     const disabledInc = incDisabled || inc === maxValue //условие дизейбла кнопки inc
     const disabledReset = resetDisabled //условие дизейбла кнопки reset
