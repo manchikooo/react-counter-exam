@@ -112,6 +112,7 @@ function App() {
                                type='number'
                                value={maxValue}
                                onChange={currentValueOfMaxInput}
+                               onKeyPress={changeSet}
                         />
                         </span>
                         </div>
@@ -122,6 +123,7 @@ function App() {
                                type='number'
                                value={startValue}
                                onChange={currentValueOfStartInput}
+                               onKeyPress={changeSet}
                         />
                             </span>
                         </div>
@@ -154,7 +156,8 @@ function App() {
                 <div className={CIclasses.buttonBlock}>
                     <Button title={'set'}
                             callback={changeSet}
-                            disabled={disabledSet}/>
+                            disabled={disabledSet}
+                    />
                 </div>
             </div>
             <div className="Counter">
