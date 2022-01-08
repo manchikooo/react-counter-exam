@@ -61,6 +61,7 @@ export const counterReducer = (state = initialState, action: ActionTypes): initi
         case 'AFTER-PRESS-SET': {
             return {
                 ...state,
+                inc: state.startValue,
                 setDisabled: true,
                 incDisabled: false,
                 resetDisabled: false,
@@ -173,47 +174,39 @@ export const setValuesFromLocalStorageAC = (startValue: number, maxValue: number
     } as const
 }
 
-export const setStartValueAndMaxValueTC = () => (dispatch: Dispatch<any>, getState: () => RootReducerType) => {
 
-    let currentStartValue = getState().counter.startValue
-    let currentMaxValue = getState().counter.maxValue
-
-    localStorage.setItem('startValue', JSON.stringify(currentStartValue))
-    localStorage.setItem('maxValue', JSON.stringify(currentMaxValue))
-
-    dispatch(resetIncAC())
-    dispatch(afterPressSetAC())
-}
-
-export const counterValueTC = () => (dispatch: Dispatch<any>, getState: () => RootReducerType) => {
-
-    let currentCounterValue = getState().counter.inc
-
-    localStorage.setItem('counterValue', JSON.stringify(currentCounterValue + 1))
-
-    dispatch(incCounterAC())
-}
-
-export const pressResetTC = () => (dispatch: Dispatch<any>, getState: () => RootReducerType) => {
-
-    let counterValueAfterPressReset = getState().counter.startValue
-
-    localStorage.setItem('counterValue', JSON.stringify(counterValueAfterPressReset))
-
-    dispatch(resetIncAC())
-}
-
-export const setStartValueAndMaxValueFromLocalStorageTC = () => (dispatch: Dispatch<any>) => {
-    let startValueAsString = localStorage.getItem('startValue')
-    let maxValueAsString = localStorage.getItem('maxValue')
-    let counterValueAsString = localStorage.getItem('counterValue')
-    if (startValueAsString && maxValueAsString && counterValueAsString) {
-        let newStartValueAsString = JSON.parse(startValueAsString)
-        let newMaxValueAsString = JSON.parse(maxValueAsString)
-        let newCounterValueAsString = JSON.parse(counterValueAsString)
-        dispatch(setValuesFromLocalStorageAC(newStartValueAsString, newMaxValueAsString, newCounterValueAsString))
-    }
-}
+// export const setStartValueAndMaxValueTC = () => (dispatch: Dispatch<any>, getState: () => RootReducerType) => {
+//     let currentStartValue = getState().counter.startValue
+//     let currentMaxValue = getState().counter.maxValue
+//     localStorage.setItem('startValue', JSON.stringify(currentStartValue))
+//     localStorage.setItem('maxValue', JSON.stringify(currentMaxValue))
+//     dispatch(resetIncAC())
+//     dispatch(afterPressSetAC())
+// }
+//
+// export const counterValueTC = () => (dispatch: Dispatch<any>, getState: () => RootReducerType) => {
+//     let currentCounterValue = getState().counter.inc
+//     localStorage.setItem('counterValue', JSON.stringify(currentCounterValue + 1))
+//     dispatch(incCounterAC())
+// }
+//
+// export const pressResetTC = () => (dispatch: Dispatch<any>, getState: () => RootReducerType) => {
+//     let counterValueAfterPressReset = getState().counter.startValue
+//     localStorage.setItem('counterValue',  JSON.stringify(counterValueAfterPressReset))
+//     dispatch(resetIncAC())
+// }
+//
+// export const setStartValueAndMaxValueFromLocalStorageTC = () => (dispatch: Dispatch<any>) => {
+//     let startValueAsString = localStorage.getItem('startValue')
+//     let maxValueAsString = localStorage.getItem('maxValue')
+//     let counterValueAsString = localStorage.getItem('counterValue')
+//     if (startValueAsString && maxValueAsString && counterValueAsString) {
+//         let newStartValueAsString = JSON.parse(startValueAsString)
+//         let newMaxValueAsString = JSON.parse(maxValueAsString)
+//         let newCounterValueAsString = JSON.parse(counterValueAsString)
+//         dispatch(setValuesFromLocalStorageAC(newStartValueAsString, newMaxValueAsString, newCounterValueAsString))
+//     }
+// }
 
 
 

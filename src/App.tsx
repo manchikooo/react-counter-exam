@@ -8,14 +8,11 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootReducerType} from "./Reducers/store";
 import {
     afterPressSetAC,
-    beforePressSetAC, counterValueTC,
-    disableAllButtonsAC,
-    incCounterAC, pressResetTC,
-    resetIncAC,
+    beforePressSetAC,
+    disableAllButtonsAC, incCounterAC, resetIncAC,
     setCounterMessageAC,
     setMaxValueAC,
-    setStartValueAC, setStartValueAndMaxValueFromLocalStorageTC,
-    setStartValueAndMaxValueTC
+    setStartValueAC,
 } from "./Reducers/counterReducer";
 
 export type counterMessagesType = 'Press set' | 'Incorrect value' | null
@@ -28,41 +25,22 @@ function App() {
     let startValue = useSelector<RootReducerType, number>(state => state.counter.startValue)
     let maxValue = useSelector<RootReducerType, number>(state => state.counter.maxValue)
 
-    let setDis = useSelector<RootReducerType, boolean>(state => state.counter.setDisabled)
-    let incDis = useSelector<RootReducerType, boolean>(state => state.counter.incDisabled)
-    let resDis = useSelector<RootReducerType, boolean>(state => state.counter.resetDisabled)
-
     let counterMessage = useSelector<RootReducerType, counterMessagesType>(state => state.counter.counterMessage)
 
-    useEffect(() => {
-        dispatch(setStartValueAndMaxValueFromLocalStorageTC())
-    }, [ ])
-
     // useEffect(() => {
-    // }, [maxValue])
-
-    // useEffect(() => {
-
-    // }, [])
-    //
-    // useEffect(() => {
-    //     let maxValueAsString = localStorage.getItem('maxValue')
-    //     if (maxValueAsString) {
-    //         let newMaxValueAsString = JSON.parse(maxValueAsString)
-    //         setMaxValue(newMaxValueAsString)
-    //     }
-    // }, [])
+    //     // dispatch(setStartValueAndMaxValueFromLocalStorageTC())
+    // }, [ ])
 
     const pressSet = () => { //при клике на кнопку set происходит это:
-        dispatch(setStartValueAndMaxValueTC())
+        dispatch(afterPressSetAC())
     }
     //
     const pressInc = () => { //при клике на кнопку inc происходит это:
-        dispatch(counterValueTC())
+        dispatch(incCounterAC())
     }
 
     const pressReset = () => { //при клике на кнопку reset происходит это:
-        dispatch(pressResetTC())
+        dispatch(resetIncAC())
     }
 
     const currentValueOfMaxInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -95,10 +73,14 @@ function App() {
         }
     }
 
-    const inputErrorStyle = maxValue <= startValue || maxValue <= 0 || startValue < 0 ? CIclasses.inputError : CIclasses.input
+    let setDis = useSelector<RootReducerType, boolean>(state => state.counter.setDisabled)
+    let incDis = useSelector<RootReducerType, boolean>(state => state.counter.incDisabled)
+    let resDis = useSelector<RootReducerType, boolean>(state => state.counter.resetDisabled)
 
     const incDis2 = inc === maxValue
     const resDis2 = inc === startValue
+
+    const inputErrorStyle = maxValue <= startValue || maxValue <= 0 || startValue < 0 ? CIclasses.inputError : CIclasses.input
 
     return (
         <div>
