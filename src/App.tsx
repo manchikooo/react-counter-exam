@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 import {Tablo} from "./components/Counter/Tablo/Tablo";
 import {Button} from "./components/Counter/Button/Button";
@@ -8,13 +8,14 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootReducerType} from "./Reducers/store";
 import {
     afterPressSetAC,
-    beforePressSetAC,
+    beforePressSetAC, counterValueTC,
     disableAllButtonsAC,
-    incCounterAC,
+    incCounterAC, pressResetTC,
     resetIncAC,
     setCounterMessageAC,
     setMaxValueAC,
-    setStartValueAC
+    setStartValueAC, setStartValueAndMaxValueFromLocalStorageTC,
+    setStartValueAndMaxValueTC
 } from "./Reducers/counterReducer";
 
 export type counterMessagesType = 'Press set' | 'Incorrect value' | null
@@ -32,18 +33,16 @@ function App() {
     let resDis = useSelector<RootReducerType, boolean>(state => state.counter.resetDisabled)
 
     let counterMessage = useSelector<RootReducerType, counterMessagesType>(state => state.counter.counterMessage)
-    // useEffect(() => {
-    // }, [startValue])
-    //
+
+    useEffect(() => {
+        dispatch(setStartValueAndMaxValueFromLocalStorageTC())
+    }, [ ])
+
     // useEffect(() => {
     // }, [maxValue])
 
     // useEffect(() => {
-    //     let startValueAsString = localStorage.getItem('startValue')
-    //     if (startValueAsString) {
-    //         let newStartValueAsString = JSON.parse(startValueAsString)
-    //         setStartValue(newStartValueAsString)
-    //     }
+
     // }, [])
     //
     // useEffect(() => {
@@ -54,20 +53,16 @@ function App() {
     //     }
     // }, [])
 
-    const changeSet = () => { //при клике на кнопку set происходит это:
-        dispatch(resetIncAC())
-        dispatch(afterPressSetAC())
-
-        // localStorage.setItem('startValue', JSON.stringify(startValue))
-        // localStorage.setItem('maxValue', JSON.stringify(maxValue))
+    const pressSet = () => { //при клике на кнопку set происходит это:
+        dispatch(setStartValueAndMaxValueTC())
     }
     //
-    const changeInc = () => { //при клике на кнопку inc происходит это:
-        dispatch(incCounterAC())
+    const pressInc = () => { //при клике на кнопку inc происходит это:
+        dispatch(counterValueTC())
     }
 
-    const changeReset = () => { //при клике на кнопку reset происходит это:
-        dispatch(resetIncAC())
+    const pressReset = () => { //при клике на кнопку reset происходит это:
+        dispatch(pressResetTC())
     }
 
     const currentValueOfMaxInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -102,6 +97,9 @@ function App() {
 
     const inputErrorStyle = maxValue <= startValue || maxValue <= 0 || startValue < 0 ? CIclasses.inputError : CIclasses.input
 
+    const incDis2 = inc === maxValue
+    const resDis2 = inc === startValue
+
     return (
         <div>
             <div className={CIclasses.settingsInfoAndButtonBlock}>
@@ -114,7 +112,7 @@ function App() {
                                type='number'
                                value={maxValue}
                                onChange={currentValueOfMaxInput}
-                               onKeyPress={changeSet}
+                               onKeyPress={pressSet}
                         />
                         </span>
                         </div>
@@ -125,7 +123,7 @@ function App() {
                                type='number'
                                value={startValue}
                                onChange={currentValueOfStartInput}
-                               onKeyPress={changeSet}
+                               onKeyPress={pressSet}
                         />
                             </span>
                         </div>
@@ -133,7 +131,7 @@ function App() {
                 </div>
                 <div className={CIclasses.buttonBlock}>
                     <Button title={'set'}
-                            callback={changeSet}
+                            callback={pressSet}
                             disabled={setDis}
                     />
                 </div>
@@ -146,12 +144,12 @@ function App() {
                 />
                 <div className={classes.buttonsStyle}>
                     <Button title={'inc'}
-                            callback={changeInc}
-                            disabled={incDis}
+                            callback={pressInc}
+                            disabled={incDis || incDis2}
                     />
                     <Button title={'reset'}
-                            callback={changeReset}
-                            disabled={resDis}
+                            callback={pressReset}
+                            disabled={resDis || resDis2}
                     />
                 </div>
             </div>
